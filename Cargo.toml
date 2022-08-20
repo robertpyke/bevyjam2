@@ -17,9 +17,9 @@ opt-level = 1
 [profile.dev.package."*"]
 opt-level = 3
 
-# Setup git hooks for precommit (fmt, test, lint (clippy), check)
+# Setup git hooks for precommit
 [package.metadata.precommit]
-fmt = "cargo fmt --check"
-test = "cargo test"
-clippy = "cargo clippy"
-check = "cargo check"
+check = "cargo check" # ensure package can compile
+clippy = "cargo clippy" # run clippy linting
+fmt = "cargo fmt --check" # check format
+test = "cargo test" # ensure unit tests pass
