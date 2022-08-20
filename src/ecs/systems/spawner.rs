@@ -7,8 +7,8 @@ use bevy::{
 
 use crate::ecs::components::{position::Position, velocity::Velocity};
 
-const END_OF_WORLD_X: f32 = 100.;
-const END_OF_WORLD_Y: f32 = 100.;
+const END_OF_WORLD_X: f32 = 450.;
+const END_OF_WORLD_Y: f32 = 450.;
 const GRID_SIZE: f32 = 10.;
 
 pub fn spawn_background_world_entities(
