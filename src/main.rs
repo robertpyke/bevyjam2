@@ -6,6 +6,7 @@ use bevy::{
     time::FixedTimestep,
     window::PresentMode,
 };
+
 use ecs::systems;
 
 const TIMESTEP_EXAMPLE: f64 = 1.0;
