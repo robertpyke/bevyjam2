@@ -29,8 +29,8 @@ pub fn spawn_background_world_entities(
             .spawn()
             .insert(position)
             .insert(Velocity {
-                magnitude: 10.,
-                angle_deg: rng.gen_range(0.0..360.),
+                magnitude: rng.gen_range(1.0..10.),
+                angle_deg: 180.,
             })
             .insert_bundle(MaterialMesh2dBundle {
                 mesh: meshes.add(shape::Circle::new(GRID_SIZE / 2.).into()).into(),

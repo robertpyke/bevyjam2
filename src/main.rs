@@ -35,6 +35,7 @@ fn main() {
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
+                .with_system(systems::movement::move_system)
                 .with_system(systems::renderer::transform_positions),
         )
         .add_system(systems::logging::log_positions)
