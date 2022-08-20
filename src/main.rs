@@ -9,7 +9,8 @@ use bevy::{
 
 use ecs::systems;
 
-const TIMESTEP_EXAMPLE: f64 = 1.0;
+const TIMESTEP_WORLD_SPAWNER: f64 = 1.0;
+const TIMESTEP_NORM_TICK: f64 = 0.05;
 
 fn main() {
     App::new()
@@ -28,8 +29,14 @@ fn main() {
         .add_startup_system(systems::camera::setup_camera)
         .add_system_set(
             SystemSet::new()
-                .with_run_criteria(FixedTimestep::step(TIMESTEP_EXAMPLE))
-                .with_system(systems::example::hello_world),
+                .with_run_criteria(FixedTimestep::step(TIMESTEP_WORLD_SPAWNER))
+                .with_system(systems::spawner::spawn_background_world_entities),
         )
+        .add_system_set(
+            SystemSet::new()
+                .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
+                .with_system(systems::renderer::transform_positions),
+        )
+        .add_system(systems::logging::log_positions)
         .run();
 }

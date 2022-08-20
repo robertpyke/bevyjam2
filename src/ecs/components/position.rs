@@ -12,11 +12,11 @@ impl std::fmt::Display for Position {
     }
 }
 impl Position {
-    fn snap_to_grid(self: &Self, grid_size: f32) -> Position {
-        return Position {
-            x: (self.x / f32::from(grid_size)).floor() * grid_size,
-            y: (self.y / f32::from(grid_size)).floor() * grid_size,
-        };
+    pub fn snap_to_grid(self, grid_size: f32) -> Position {
+        Position {
+            x: (self.x / grid_size).floor() * grid_size,
+            y: (self.y / grid_size).floor() * grid_size,
+        }
     }
 }
 
