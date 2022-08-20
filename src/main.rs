@@ -1,3 +1,8 @@
+mod ecs;
+
+use bevy::prelude::*;
+use ecs::systems;
+
 fn main() {
-    println!("Hello, world!");
+    App::new().add_system(systems::example::hello_world).run();
 }
