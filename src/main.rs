@@ -36,13 +36,13 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
                 .with_system(systems::movement::move_system)
-                .with_system(systems::renderer::transform_positions),
+                .with_system(systems::renderer::transform_positions)
+                .with_system(systems::logging::log_positions),
         )
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_CLEANUP_TICK))
                 .with_system(systems::cleanup::cleanup_system),
         )
-        .add_system(systems::logging::log_positions)
         .run();
 }
