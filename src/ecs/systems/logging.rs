@@ -3,17 +3,23 @@ use bevy::{
     time::Time,
 };
 
-use crate::ecs::components::{position::Position, velocity::Velocity};
+use crate::ecs::components::{position::Position, title::Title, velocity::Velocity};
 
 pub fn log_positions(
     time: Res<Time>,
-    query_positions: Query<(Entity, &Position, Option<&Velocity>)>,
+    query_positions: Query<(Entity, &Position, Option<&Title>, Option<&Velocity>)>,
 ) {
     info!("time delta: {:?}", time.delta());
-    for (entity, position, optional_velocity) in query_positions.iter() {
-        match optional_velocity {
-            Some(velocity) => info!("{:?} at {} moving {}", entity, position, velocity),
-            None => info!("{:?} at {}", entity, position),
-        }
+    for (entity, position, optional_title, optional_velocity) in query_positions.iter() {
+        let log_string = match (optional_title, optional_velocity) {
+            (None, None) => format!("({:?}) at {}", entity, position),
+            (None, Some(velocity)) => format!("({:?}) at {} moving {}", entity, position, velocity),
+            (Some(title), None) => format!("{} ({:?}) at {}", title, entity, position),
+            (Some(title), Some(velocity)) => format!(
+                "{} ({:?}) at {} moving {}",
+                title, entity, position, velocity
+            ),
+        };
+        info!("{}", log_string);
     }
 }

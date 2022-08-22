@@ -9,6 +9,7 @@ edition = "2021"
 bevy = "0.8.0"
 pre-commit = "0.5.2"
 rand = "0.8.5"
+uuid = "1.1.2"
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]

@@ -11,7 +11,7 @@ use ecs::systems;
 
 const TIMESTEP_WORLD_SPAWNER: f64 = 1.0;
 const TIMESTEP_NORM_TICK: f64 = 0.05;
-
+const TIMESTEP_CLEANUP_TICK: f64 = 10.;
 fn main() {
     App::new()
         .insert_resource(WindowDescriptor {
@@ -37,6 +37,11 @@ fn main() {
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
                 .with_system(systems::movement::move_system)
                 .with_system(systems::renderer::transform_positions),
+        )
+        .add_system_set(
+            SystemSet::new()
+                .with_run_criteria(FixedTimestep::step(TIMESTEP_CLEANUP_TICK))
+                .with_system(systems::cleanup::cleanup_system),
         )
         .add_system(systems::logging::log_positions)
         .run();
