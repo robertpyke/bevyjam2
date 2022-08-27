@@ -9,8 +9,9 @@ use bevy::{
 };
 
 use crate::ecs::components::{
-    angular_velocity::AngularVelocity, gravitational_pull::GravitationalPull, position::Position,
-    title::Title, velocity::Velocity,
+    angular_velocity::AngularVelocity, cell_structure::CellStructure, consumable::Consumable,
+    consumer::Consumer, gravitational_pull::GravitationalPull, position::Position,
+    resource::ResourceType, title::Title, velocity::Velocity,
 };
 
 const END_OF_WORLD_X: f32 = 450.;
@@ -42,6 +43,12 @@ pub fn spawn_test_consumers(
             .insert(position)
             .insert(Title {
                 val: format!("consumer: '{}'", id),
+            })
+            .insert(ResourceType::Cell(CellStructure::Collector))
+            .insert(Consumer {
+                target_resource: ResourceType::Energy,
+                consumption_radius: 5.0,
+                volume: 10.,
             })
             .insert(GravitationalPull {
                 mass: gravitational_pull,
@@ -76,6 +83,11 @@ pub fn spawn_background_world_entities(
             .insert(position)
             .insert(Title {
                 val: format!("floater: '{}'", id),
+            })
+            .insert(ResourceType::Energy)
+            .insert(Consumable {
+                resource: ResourceType::Energy,
+                volume: 1.,
             })
             .insert(AngularVelocity {
                 val: rng.gen_range(-PI..PI),

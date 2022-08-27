@@ -1,5 +1,5 @@
 use bevy::{
-    prelude::{info, Entity, Query, Res},
+    prelude::{debug, Entity, Query, Res},
     time::Time,
 };
 
@@ -9,7 +9,7 @@ pub fn log_positions(
     time: Res<Time>,
     query_positions: Query<(Entity, &Position, Option<&Title>, Option<&Velocity>)>,
 ) {
-    info!("time delta: {:?}", time.delta());
+    debug!("time delta: {:?}", time.delta());
     for (entity, position, optional_title, optional_velocity) in query_positions.iter() {
         let log_string = match (optional_title, optional_velocity) {
             (None, None) => format!("({:?}) at {}", entity, position),
@@ -20,6 +20,6 @@ pub fn log_positions(
                 title, entity, position, velocity
             ),
         };
-        info!("{}", log_string);
+        debug!("{}", log_string);
     }
 }

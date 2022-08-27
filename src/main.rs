@@ -22,7 +22,7 @@ fn main() {
             ..default()
         })
         .insert_resource(LogSettings {
-            level: Level::WARN,
+            level: Level::INFO,
             filter: "wgpu=error,bevy_render=info,bevy_ecs=info".to_string(),
         })
         .add_plugins(DefaultPlugins)
@@ -38,6 +38,7 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
                 .with_system(systems::movement::move_system)
+                .with_system(systems::consumption::consumption_system)
                 .with_system(systems::renderer::transform_positions)
                 .with_system(systems::logging::log_positions),
         )
