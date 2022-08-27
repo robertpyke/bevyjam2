@@ -22,7 +22,7 @@ fn main() {
             ..default()
         })
         .insert_resource(LogSettings {
-            level: Level::DEBUG,
+            level: Level::INFO,
             filter: "wgpu=error,bevy_render=info,bevy_ecs=info".to_string(),
         })
         .add_plugins(DefaultPlugins)
