@@ -22,12 +22,13 @@ fn main() {
             ..default()
         })
         .insert_resource(LogSettings {
-            level: Level::DEBUG,
+            level: Level::WARN,
             filter: "wgpu=error,bevy_render=info,bevy_ecs=info".to_string(),
         })
         .add_plugins(DefaultPlugins)
         .add_startup_system(systems::camera::setup_camera)
         .add_startup_system(systems::spawner::spawn_test_consumers)
+        .add_startup_system(systems::ui::setup_ui)
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_WORLD_SPAWNER))
