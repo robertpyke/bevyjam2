@@ -28,6 +28,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_startup_system(systems::camera::setup_camera)
         .add_startup_system(systems::spawner::spawn_test_consumers)
+        .add_startup_system(systems::ui::setup_ui)
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_WORLD_SPAWNER))
