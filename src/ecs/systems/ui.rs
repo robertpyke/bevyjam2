@@ -32,7 +32,7 @@ pub fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
                         size: Size::new(Val::Undefined, Val::Undefined),
                         flex_grow: 1.,
                         align_items: AlignItems::FlexEnd,
-                        margin: UiRect::all(Val::Px(5.)),
+                        margin: UiRect::all(Val::Px(10.)),
                         ..default()
                     },
                     color: Color::NONE.into(),
@@ -45,8 +45,8 @@ pub fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
                                 "Mitosis",
                                 TextStyle {
                                     font_size: 20.0,
-                                    color: Color::RED,
-                                    font: asset_server.load("fonts/PressStart2P.ttf")
+                                    color: Color::WHITE,
+                                    font: font.clone()
                                 }
                             )
                             .with_style( Style {
