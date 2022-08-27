@@ -25,3 +25,7 @@ check = "cargo check" # ensure package can compile
 clippy = "cargo clippy" # run clippy linting
 fmt = "cargo fmt --check" # check format
 test = "cargo test" # ensure unit tests pass
+
+# wgpu fix for flickering (temporary)
+[patch.crates-io]
+wgpu = { git = "https://github.com/mockersf/wgpu/", branch = "unconditional-clear-workaround" }
