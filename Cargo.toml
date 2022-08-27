@@ -22,8 +22,8 @@ opt-level = 3
 # Setup git hooks for precommit
 [package.metadata.precommit]
 check = "cargo check" # ensure package can compile
-clippy = "cargo clippy" # run clippy linting
-fmt = "cargo fmt --check" # check format
+clippy = "cargo clippy -- -D warnings" # run clippy linting
+fmt = "cargo fmt --all -- --check" # check format
 test = "cargo test" # ensure unit tests pass
 
 # wgpu fix for flickering (temporary)

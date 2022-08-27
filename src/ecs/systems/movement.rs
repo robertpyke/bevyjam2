@@ -1,11 +1,9 @@
-use std::{borrow::Borrow, cell::RefCell, f32::consts::PI, rc::Rc};
+use std::f32::consts::PI;
 
-use bevy::prelude::{Entity, ParamSet, Query};
+use bevy::prelude::{Entity, Query};
 
 use crate::ecs::components::{
-    gravitational_pull::GravitationalPull,
-    position::Position,
-    velocity::{self, Velocity},
+    gravitational_pull::GravitationalPull, position::Position, velocity::Velocity,
 };
 
 pub fn move_system(

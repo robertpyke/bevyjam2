@@ -1,11 +1,13 @@
 use bevy::prelude::Component;
 
+#[allow(dead_code)]
 #[derive(Component, Debug, Clone)]
 pub enum CellStructure {
     Producer,
     Collector,
 }
 
+#[allow(dead_code)]
 impl CellStructure {
     pub fn new(cell_structure: CellStructure) -> Self {
         match cell_structure {
