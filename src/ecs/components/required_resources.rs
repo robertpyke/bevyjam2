@@ -2,12 +2,14 @@ use bevy::prelude::Component;
 
 use crate::ecs::components::cell_structure::CellStructure;
 
+#[allow(dead_code)]
 #[derive(Component, Debug, Clone)]
 pub struct RequiredResources {
     pub required_energy: u16,
     pub target_structure: CellStructure,
 }
 
+#[allow(dead_code)]
 impl RequiredResources {
     pub fn new(target_structure: CellStructure) -> Self {
         RequiredResources {

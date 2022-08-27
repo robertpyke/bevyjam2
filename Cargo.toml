@@ -7,9 +7,12 @@ edition = "2021"
 
 [dependencies]
 bevy = "0.8.0"
-pre-commit = "0.5.2"
 rand = "0.8.5"
 uuid = "1.1.2"
+
+# Not compatible with Windows' builds
+[target.'cfg(not(windows))'.dev-dependencies]
+pre-commit = "0.5.2"
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]
@@ -22,6 +25,10 @@ opt-level = 3
 # Setup git hooks for precommit
 [package.metadata.precommit]
 check = "cargo check" # ensure package can compile
-clippy = "cargo clippy" # run clippy linting
-fmt = "cargo fmt --check" # check format
+clippy = "cargo clippy -- -D warnings" # run clippy linting
+fmt = "cargo fmt --all -- --check" # check format
 test = "cargo test" # ensure unit tests pass
+
+# wgpu fix for flickering (temporary)
+[patch.crates-io]
+wgpu = { git = "https://github.com/mockersf/wgpu/", branch = "unconditional-clear-workaround" }
