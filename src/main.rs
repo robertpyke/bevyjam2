@@ -22,12 +22,13 @@ fn main() {
             ..default()
         })
         .insert_resource(LogSettings {
-            level: Level::INFO,
+            level: Level::WARN,
             filter: "wgpu=error,bevy_render=info,bevy_ecs=info".to_string(),
         })
         .add_plugins(DefaultPlugins)
         .add_startup_system(systems::camera::setup_camera)
         .add_startup_system(systems::spawner::spawn_test_consumers)
+        .add_startup_system(systems::spawner::spawn_test_cell_bases)
         .add_startup_system(systems::ui::setup_ui)
         .add_system_set(
             SystemSet::new()
@@ -46,6 +47,12 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_CLEANUP_TICK))
                 .with_system(systems::cleanup::cleanup_system),
+        )
+        .add_system_set(
+            SystemSet::new()
+                .with_system(systems::ui::spawn_menus)
+                .with_system(systems::ui::set_open_menu_flag)
+                .with_system(systems::ui::mouse_position_ui),
         )
         .run();
 }

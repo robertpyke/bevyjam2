@@ -2,6 +2,7 @@ pub(crate) mod camera;
 pub(crate) mod cleanup;
 pub(crate) mod consumption;
 pub(crate) mod logging;
+pub(crate) mod menu_management;
 pub(crate) mod movement;
 pub(crate) mod renderer;
 pub(crate) mod spawner;

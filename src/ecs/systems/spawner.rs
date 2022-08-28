@@ -9,9 +9,9 @@ use bevy::{
 };
 
 use crate::ecs::components::{
-    angular_velocity::AngularVelocity, cell_structure::CellStructure, consumable::Consumable,
-    consumer::Consumer, gravitational_pull::GravitationalPull, position::Position,
-    resource::ResourceType, title::Title, velocity::Velocity,
+    angular_velocity::AngularVelocity, cell_base::CellBase, cell_structure::CellStructure,
+    consumable::Consumable, consumer::Consumer, gravitational_pull::GravitationalPull,
+    position::Position, resource::ResourceType, title::Title, velocity::Velocity,
 };
 
 const END_OF_WORLD_X: f32 = 450.;
@@ -100,6 +100,35 @@ pub fn spawn_background_world_entities(
                 mesh: meshes.add(shape::Cube::new(size).into()).into(),
                 material: materials.add(ColorMaterial::from(Color::PURPLE)),
                 transform: Transform::from_translation(Vec3::new(scaled_x, scaled_y, z)),
+                ..default()
+            });
+    }
+}
+
+pub fn spawn_test_cell_bases(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+) {
+    let mut rng = rand::thread_rng();
+
+    for _i in 0..rng.gen_range(15..25) {
+        let x = rng.gen_range(-END_OF_WORLD_X..END_OF_WORLD_X);
+        let y = rng.gen_range(-END_OF_WORLD_Y..END_OF_WORLD_Y);
+        let z: f32 = 0.;
+        let position = Position { x, y }.snap_to_grid(GRID_SIZE);
+        let scaled_x = position.x;
+        let scaled_y = position.y;
+        let size = GRID_SIZE;
+
+        // Spawn a consumer
+        commands
+            .spawn()
+            .insert(position)
+            .insert(CellBase::Growth)
+            .insert_bundle(MaterialMesh2dBundle {
+                mesh: meshes.add(shape::Cube::new(size).into()).into(),
+                material: materials.add(ColorMaterial::from(Color::BLUE)),
                 ..default()
             });
     }
