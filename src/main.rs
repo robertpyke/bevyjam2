@@ -39,6 +39,7 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
                 .with_system(systems::movement::move_system)
+                .with_system(systems::cleanup::cleanup_tick)
                 .with_system(systems::consumption::consumption_system)
                 .with_system(systems::specialization_transformer::specialization_transformer_system)
                 .with_system(systems::renderer::transform_positions)

@@ -12,14 +12,16 @@ use bevy::{
 
 use crate::ecs::components::{
     angular_velocity::AngularVelocity, cell_structure::CellStructure, consumable::Consumable,
-    consumer::Consumer, gravitational_pull::GravitationalPull, position::Position,
-    resource::ResourceType, specialization::Specialization, title::Title, velocity::Velocity,
+    consumer::Consumer, cullable::Cullable, gravitational_pull::GravitationalPull,
+    position::Position, resource::ResourceType, specialization::Specialization, title::Title,
+    velocity::Velocity,
 };
 
 const END_OF_WORLD_X: f32 = 450.;
 const END_OF_WORLD_Y: f32 = 450.;
 const GRID_SIZE: f32 = 10.;
 const SPAWN_UP_TO: u8 = 10;
+const CULL_TIMEOUT: i32 = 200;
 
 pub fn spawn_initial_consumers(
     mut commands: Commands,
@@ -91,6 +93,9 @@ pub fn spawn_background_world_entities(
             .insert(Title {
                 val: format!("floater: '{}'", id),
             })
+            .insert(Cullable {
+                ticks_remaining: CULL_TIMEOUT,
+            })
             .insert(ResourceType::Energy)
             .insert(Consumable {
                 resource: ResourceType::Energy,
@@ -129,6 +134,9 @@ pub fn spawn_producer_entities(
                 .insert(position.clone())
                 .insert(Title {
                     val: format!("floater: '{}'", id),
+                })
+                .insert(Cullable {
+                    ticks_remaining: CULL_TIMEOUT,
                 })
                 .insert(Consumable {
                     resource: *produced_resource,
