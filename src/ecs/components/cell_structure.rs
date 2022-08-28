@@ -1,4 +1,4 @@
-use bevy::prelude::Component;
+use bevy::prelude::{Color, Component};
 
 use super::resource::ResourceType;
 
@@ -7,4 +7,13 @@ use super::resource::ResourceType;
 pub enum CellStructure {
     Producer(ResourceType),
     Collector(ResourceType),
+}
+
+impl CellStructure {
+    pub fn color(&self) -> Color {
+        match self {
+            CellStructure::Producer(resource_type) => resource_type.color(),
+            CellStructure::Collector(resource_type) => resource_type.color(),
+        }
+    }
 }
