@@ -117,6 +117,8 @@ pub fn spawn_background_world_entities(
     }
 }
 
+const SPAWN_LIMIT: usize = 40;
+
 pub fn spawn_producer_entities(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -124,7 +126,7 @@ pub fn spawn_producer_entities(
     query: Query<(&Position, &CellStructure)>,
 ) {
     let mut rng = rand::thread_rng();
-    for (position, cell_structure) in &query {
+    for (position, cell_structure) in query.iter().choose_multiple(&mut rng, SPAWN_LIMIT) {
         if let CellStructure::Producer(produced_resource) = cell_structure {
             let id = Uuid::new_v4();
             let z: f32 = 0.;
