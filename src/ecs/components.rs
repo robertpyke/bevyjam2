@@ -5,5 +5,6 @@ pub(crate) mod consumer;
 pub(crate) mod gravitational_pull;
 pub(crate) mod position;
 pub(crate) mod resource;
+pub(crate) mod specialization;
 pub(crate) mod title;
 pub(crate) mod velocity;

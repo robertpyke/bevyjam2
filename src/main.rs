@@ -27,18 +27,20 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_startup_system(systems::camera::setup_camera)
-        .add_startup_system(systems::spawner::spawn_test_consumers)
+        .add_startup_system(systems::spawner::spawn_initial_consumers)
         .add_startup_system(systems::ui::setup_ui)
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_WORLD_SPAWNER))
-                .with_system(systems::spawner::spawn_background_world_entities),
+                .with_system(systems::spawner::spawn_background_world_entities)
+                .with_system(systems::spawner::spawn_producer_entities),
         )
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIMESTEP_NORM_TICK))
                 .with_system(systems::movement::move_system)
                 .with_system(systems::consumption::consumption_system)
+                .with_system(systems::specialization_transformer::specialization_transformer_system)
                 .with_system(systems::renderer::transform_positions)
                 .with_system(systems::logging::log_positions),
         )

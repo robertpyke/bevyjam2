@@ -38,11 +38,17 @@ pub fn move_system(
 
             let x_dist = position.x - gravity_position.x;
             let y_dist = position.y - gravity_position.y;
+            let angle_to_gravity = if x_dist == 0. && y_dist == 0. {
+                0.
+            } else {
+                ((y_dist / x_dist) as f32).atan()
+            };
+
             let hyp = (x_dist.abs().powi(2) + y_dist.abs().powi(2)).sqrt();
-            let angle_to_gravity = ((y_dist / x_dist) as f32).atan();
+            // Ensure gravity is never too extreme
+            let hyp = f32::max(5., hyp);
             let b = velocity.angle_radians - angle_to_gravity;
             let b = (b + PI) % (2. * PI) - PI;
-            // debug!("NEW SPECIAL ANGLE: {}", b.to_degrees());
 
             // Move a fractional amount of the desired angle, based on the distance away, and the gravitational pull
             velocity.angle_radians += (b / hyp) * (gravitation_pull.mass / 10.);

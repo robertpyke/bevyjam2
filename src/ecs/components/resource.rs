@@ -1,9 +1,18 @@
-use bevy::prelude::Component;
+use bevy::prelude::{Color, Component};
 
-use crate::ecs::components::cell_structure::CellStructure;
-
-#[derive(Component, Debug, Clone, Eq, PartialEq)]
+#[derive(Component, Debug, Clone, Eq, PartialEq, Copy)]
 pub enum ResourceType {
     Energy,
-    Cell(CellStructure),
+    Light,
+    Water,
+}
+
+impl ResourceType {
+    pub fn color(self) -> Color {
+        match self {
+            ResourceType::Energy => Color::PURPLE,
+            ResourceType::Light => Color::YELLOW,
+            ResourceType::Water => Color::MIDNIGHT_BLUE,
+        }
+    }
 }

@@ -6,5 +6,5 @@ use crate::ecs::components::resource::ResourceType;
 pub struct Consumable {
     pub resource: ResourceType,
     // amount provided when consumed
-    pub volume: f32,
+    pub volume: u32,
 }

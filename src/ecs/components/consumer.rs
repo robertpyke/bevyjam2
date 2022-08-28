@@ -7,5 +7,5 @@ pub struct Consumer {
     pub target_resource: ResourceType,
     pub consumption_radius: f32,
     // amount consumed
-    pub volume: f32,
+    pub volume: u32,
 }
